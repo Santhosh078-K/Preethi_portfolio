@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Preethi S - STEM Trainer & Educator Portfolio | Robotics, Electronics, Science & Coding">
+  <title>Preethi S | STEM Trainer & Innovator</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Three.js for 3D Universe -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- GSAP & ScrollTrigger for Fluid Animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Canvas Confetti for Interactive Rewards -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+</head>
+
+<body>
+
+  <!-- Top Reading Progress Indicator -->
+  <div class="scroll-progress-bar" id="progressBar"></div>
+
+  <!-- Interactive Custom Cursor Glow & Dot -->
+  <div class="cursor-glow" id="cursorGlow"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+
+  <!-- Preloader -->
+  <div class="loader">
+    <div class="loader-visual">
+      <div class="loader-circle"></div>
+      <div class="loader-core">⚛</div>
+    </div>
+    <p class="loader-text">Initializing STEM Interactive Universe...</p>
+    <div class="loader-bar"><div class="loader-progress"></div></div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- Navigation Bar -->
+  <header class="navbar" id="navbar">
+    <a href="#home" class="logo">
+      <span class="logo-mark">⚛</span> PREETHI<span class="logo-dot">.</span>
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#home" class="nav-link active">Home</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#skills" class="nav-link">Skills</a>
+      <a href="#experience" class="nav-link">Journey</a>
+      <a href="#projects" class="nav-link">Projects</a>
+      <a href="#challenge" class="nav-link">STEM Lab</a>
+      <a href="#contact" class="nav-contact btn-magnetic">Contact Me</a>
+    </nav>
+
+    <div class="nav-actions">
+      <!-- Dark / Light Theme Toggle -->
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle Dark / Light Theme" title="Toggle Theme">
+        <span class="theme-icon sun-icon">☀️</span>
+        <span class="theme-icon moon-icon">🌙</span>
+      </button>
+
+      <!-- Mobile Hamburger Toggle -->
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="bar bar-1"></span>
+        <span class="bar bar-2"></span>
+        <span class="bar bar-3"></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+      <div class="hero-bg-mesh"></div>
+
+      <div class="hero-content">
+        <div class="status-badge">
+          <span class="status-dot"></span>
+          <span class="status-text">Available for STEM Training & Workshops</span>
+        </div>
+
+        <h1 class="hero-title">
+          Exploring Ideas.<br>
+          <span class="text-gradient">Creating Futures.</span>
+        </h1>
+
+        <p class="hero-description">
+          I'm <strong>Preethi S</strong>, a dedicated STEM Trainer passionate about igniting curiosity, 
+          engineering mindset, and creative problem-solving in young innovators through interactive robotics, 
+          applied electronics, and hands-on experiments.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#projects" class="btn btn-primary btn-magnetic">
+            <span>Explore My Work</span>
+            <span class="btn-arrow">↗</span>
+          </a>
+          <button class="btn btn-outline btn-magnetic" id="copyEmailHeroBtn">
+            <span>📋 Copy Email</span>
+          </button>
+          <a href="#challenge" class="btn btn-ghost">
+            <span>🎮 Try STEM Quiz</span>
+          </a>
+        </div>
+
+        <!-- Animated Interactive Stats -->
+        <div class="hero-stats">
+          <div class="stat-card" data-tilt>
+            <div class="stat-number-wrap">
+              <span class="counter" data-target="500">0</span><span class="stat-plus">+</span>
+            </div>
+            <p>Students Inspired</p>
+          </div>
+          <div class="stat-card" data-tilt>
+            <div class="stat-number-wrap">
+              <span class="counter" data-target="50">0</span><span class="stat-plus">+</span>
+            </div>
+            <p>Hands-on Labs</p>
+          </div>
+          <div class="stat-card" data-tilt>
+            <div class="stat-number-wrap">
+              <span class="counter" data-target="30">0</span><span class="stat-plus">+</span>
+            </div>
+            <p>Robotics & DIY Kits</p>
+          </div>
+          <div class="stat-card" data-tilt>
+            <div class="stat-number-wrap">
+              <span class="counter" data-target="100">0</span><span class="stat-plus">%</span>
+            </div>
+            <p>Practical Learning</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3D Interactive Three.js STEM Universe -->
+      <div class="hero-visual">
+        <div class="visual-header">
+          <span class="visual-title">INTERACTIVE 3D STEM UNIVERSE</span>
+          <span class="visual-hint">🖱️ Drag to rotate • Click core for burst</span>
+        </div>
+
+        <div id="three-container" class="three-viewport" tabindex="0" aria-label="Interactive 3D STEM Model"></div>
+
+        <!-- 3D Scene Interactive Controls -->
+        <div class="three-controls" role="toolbar" aria-label="3D Model Controls">
+          <button class="three-btn active" data-mode="quantum" title="Quantum Core">⚛ Atom Core</button>
+          <button class="three-btn" data-mode="orbital" title="Gyroscopic Orbital Rings">🪐 Orbitals</button>
+          <button class="three-btn" data-mode="nebula" title="Particle Constellation">✨ Deep Space</button>
+          <button class="three-btn" id="threeBurstBtn" title="Trigger Energy Burst">💥 Pulse</button>
+        </div>
+
+        <!-- Floating Interactive Badges -->
+        <div class="floating-card card-one" data-mode="quantum">
+          <span class="badge-icon">🔬</span>
+          <div>
+            <strong>Applied Science</strong>
+            <small>Discovery Through Play</small>
+          </div>
+        </div>
+
+        <div class="floating-card card-two" data-mode="orbital">
+          <span class="badge-icon">🤖</span>
+          <div>
+            <strong>Robotics & IoT</strong>
+            <small>Sensors & Actuators</small>
+          </div>
+        </div>
+
+        <div class="floating-card card-three" data-mode="nebula">
+          <span class="badge-icon">💡</span>
+          <div>
+            <strong>Creative Innovation</strong>
+            <small>Tinkering & Building</small>
+          </div>
+        </div>
+      </div>
+
+      <a href="#about" class="scroll-indicator" aria-label="Scroll down to About section">
+        <span class="mouse-icon"><span class="mouse-wheel"></span></span>
+        <span class="scroll-text">SCROLL TO DISCOVER</span>
+      </a>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="section about-section" id="about">
+      <div class="section-heading">
+        <span class="eyebrow">01 / EDUCATIONAL PHILOSOPHY</span>
+        <h2>Making Learning <span class="text-gradient">Come Alive.</span></h2>
+        <p class="section-subtext">Moving beyond rote memorization into experiential discovery and creative engineering.</p>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-card glass-card" data-tilt>
+          <div class="card-spotlight"></div>
+          <div class="about-icon-wrapper">
+            <span class="about-icon">🧠</span>
+            <span class="icon-ring"></span>
+          </div>
+          <h3>Experiential Learning</h3>
+          <p>
+            Students thrive when they touch, assemble, experiment, and analyze. My methodology replaces abstract textbook definitions with tangible DIY builds, testing hypotheses in real-time.
+          </p>
+          <div class="card-footer-tags">
+            <span class="tag">Inquiry-based</span>
+            <span class="tag">Constructivism</span>
+          </div>
+        </div>
+
+        <div class="about-card glass-card" data-tilt>
+          <div class="card-spotlight"></div>
+          <div class="about-icon-wrapper">
+            <span class="about-icon">🔬</span>
+            <span class="icon-ring"></span>
+          </div>
+          <h3>Curiosity & Problem Solving</h3>
+          <p>
+            Bridging science and technology through everyday phenomena. Transforming "What is this?" into "How does it work, and how can we design it better?" through structured STEM challenges.
+          </p>
+          <div class="card-footer-tags">
+            <span class="tag">Design Thinking</span>
+            <span class="tag">Creative Labs</span>
+          </div>
+        </div>
+
+        <div class="about-card glass-card" data-tilt>
+          <div class="card-spotlight"></div>
+          <div class="about-icon-wrapper">
+            <span class="about-icon">🚀</span>
+            <span class="icon-ring"></span>
+          </div>
+          <h3>Future-Ready Skills</h3>
+          <p>
+            Equipping young minds with computational thinking, prototyping resilience, collaborative teamwork, and the confidence to create technology rather than just consume it.
+          </p>
+          <div class="card-footer-tags">
+            <span class="tag">Robotics</span>
+            <span class="tag">Computational Logic</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Highlight Banner -->
+      <div class="interactive-banner glass-card" data-tilt>
+        <div class="card-spotlight"></div>
+        <div class="banner-content">
+          <span class="banner-badge">💡 STEM TRAINING HIGHLIGHT</span>
+          <h3>"Tell me and I forget. Teach me and I remember. Involve me and I learn."</h3>
+          <p>Every workshop is crafted to give every single student a functional project they built with their own hands.</p>
+        </div>
+        <div class="banner-cta">
+          <a href="#contact" class="btn btn-primary btn-magnetic">Book a Workshop ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE STEM LAB / CHALLENGE OF THE DAY -->
+    <section class="section challenge-section" id="challenge">
+      <div class="section-heading">
+        <span class="eyebrow">02 / INTERACTIVE STEM LAB</span>
+        <h2>Test Your <span class="text-gradient">STEM Curiosity!</span></h2>
+        <p class="section-subtext">Experience the kind of interactive inquiry questions we use to stimulate classroom curiosity.</p>
+      </div>
+
+      <div class="quiz-container glass-card" id="stemQuiz">
+        <div class="card-spotlight"></div>
+
+        <div class="quiz-header">
+          <div class="quiz-pill">
+            <span class="quiz-dot"></span> Question <span id="currentQuestionNum">1</span> of 3
+          </div>
+          <button class="btn-quiz-reload" id="quizNextBtn" title="Next Question">Next Challenge ↻</button>
+        </div>
+
+        <div class="quiz-body">
+          <h3 class="quiz-question" id="quizQuestionText">
+            What sensor is commonly used in an autonomous line-follower robot to distinguish between dark lines and light surfaces?
+          </h3>
+
+          <div class="quiz-options" id="quizOptions">
+            <!-- Populated via script.js -->
+          </div>
+
+          <div class="quiz-feedback" id="quizFeedback" aria-live="polite"></div>
+        </div>
+
+        <div class="quiz-footer">
+          <div class="quiz-stat">
+            <span id="quizScoreText">Score: 0 / 0 correct</span>
+          </div>
+          <span class="quiz-tag">💡 STEM Pedagogy in Action</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section class="section skills-section" id="skills">
+      <div class="section-heading">
+        <span class="eyebrow">03 / CORE EXPERTISE</span>
+        <h2>Skills That <span class="text-gradient">Build Tomorrow.</span></h2>
+        <p class="section-subtext">A balanced blend of hands-on electronics, robotics engineering, coding instruction, and curriculum design.</p>
+      </div>
+
+      <!-- Skills Interactive Filter Tabs -->
+      <div class="filter-tabs" role="tablist" aria-label="Skills Category Filter">
+        <button class="filter-tab active" data-filter="all">All Skills</button>
+        <button class="filter-tab" data-filter="hardware">Hardware & Robotics</button>
+        <button class="filter-tab" data-filter="software">Coding & Logic</button>
+        <button class="filter-tab" data-filter="teaching">Pedagogy & Labs</button>
+      </div>
+
+      <div class="skills-grid" id="skillsGrid">
+        <div class="skill-card glass-card" data-category="hardware" data-tilt>
+          <div class="card-spotlight"></div>
+          <div class="skill-header">
+            <span class="skill-icon">🤖</span>
+            <span class="skill-level">Advanced</span>
+          </div>
+          <h3>Robotics & Mechanisms</h3>
+          <p>Building wheeled rovers, servo arms, obstacle avoidance logic, motor drivers (L298N/L293D), and kinematic gears.</p>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-label">
+              <span>Proficiency & Training Mastery</span>
+              <span>92%</span>
+            </div>
+            <div class="skill-progress-track">
+              <div class="skill-progress-fill" style="--percent: 92%;"></div>
+            </div>
+          </div>
+          <div class="skill-tags">
+            <span>Arduino</span>
+            <span>Micro:bit</span>
+            <span>Motor Drivers</span>
+            <span>Servos</span>
+          </div>
+        </div>
+
+        <div class="skill-card glass-card" data-category="hardware" data-tilt>
+          <div class="card-spotlight"></div>
+          <div class="skill-header">
+            <span class="skill-icon">🔌</span>
+            <span class="skill-level">Advanced</span>
+          </div>
+          <h3>Applied Electronics & IoT</h3>
+          <p>Breadboarding circuits, Ohm's Law in practice, analog/digital sensors (IR, Ultrasonic, LDR, DHT11), and basic IoT concepts.</p>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-label">
+              <span>Circuit Prototyping</span>
+              <span>90%</span>
+            </div>
+            <div class="skill-progress-track">
+              <div class="skill-progress-fill" style="--percent: 90%;"></div>
+            </div>
+          </div>
+          <div class="skill-tags">
+            <span>Sensors</span>
+            <span>Multimeter</span>
+            <span>Breadboards</span>
+            <span>ESP8266/ESP32</span>
+          </div>
+        </div>
+
+        <div class="skill-card glass-card" data-category="software" data-tilt>
+          <div class="card-spotlight"></div>
+          <div class="skill-header">
+            <span class="skill-icon">💻</span>
+            <span class="skill-level">Proficient</span>
+          </div>
+          <h3>Coding & Computational Logic</h3>
+          <p>Block-based programming (Scratch, Tinkercad Codeblocks) transitioning smoothly to text-based C++ (Arduino IDE) and Python.</p>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-label">
+              <span>Algorithm Instruction</span>
+              <span>88%</span>
+            </div>
+            <div class="skill-progress-track">
+              <div class="skill-progress-fill" style="--percent: 88%;"></div>
+            </div>
+          </div>
+          <div class="skill-tags">
+            <span>Scratch</span>
+            <span>Arduino C++</span>
+            <span>Python</span>
+            <span>Blockly</span>
+          </div>
+        </div>
+
+        <div class="skill-card glass-card" data-category="teaching" data-tilt>
+          <div class="card-spotlight"></div>
+          <div class="skill-header">
+            <span class="skill-icon">🧪</span>
+            <span class="skill-level">Mastery</span>
+          </div>
+          <h3>Hands-on Science Experiments</h3>
+          <p>Demonstrating fluid dynamics, optics, electromagnetism, and renewable energy with accessible DIY materials.</p>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-label">
+              <span>Classroom Engagement</span>
+              <span>95%</span>
+            </div>
+            <div class="skill-progress-track">
+              <div class="skill-progress-fill" style="--percent: 95%;"></div>
+            </div>
+          </div>
+          <div class="skill-tags">
+            <span>Optics</span>
+            <span>Electromagnetism</span>
+            <span>Hydraulics</span>
+            <span>Clean Energy</span>
+          </div>
+        </div>
+
+        <div class="skill-card glass-card" data-category="teaching" data-tilt>
+          <div class="card-spotlight"></div>
+          <div class="skill-header">
+            <span class="skill-icon">🛠️</span>
+            <span class="skill-level">Advanced</span>
+          </div>
+          <h3>DIY Prototyping & Maker Kits</h3>
+          <p>Designing cost-effective maker kits, structured instruction manuals, and safe physical prototyping setups for schools.</p>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-label">
+              <span>Kit Engineering</span>
+              <span>90%</span>
+            </div>
+            <div class="skill-progress-track">
+              <div class="skill-progress-fill" style="--percent: 90%;"></div>
+            </div>
+          </div>
+          <div class="skill-tags">
+            <span>Kit Design</span>
+            <span>3D Tinkering</span>
+            <span>Craft Prototyping</span>
+            <span>Lab Safety</span>
+          </div>
+        </div>
+
+        <div class="skill-card glass-card" data-category="teaching" data-tilt>
+          <div class="card-spotlight"></div>
+          <div class="skill-header">
+            <span class="skill-icon">🎯</span>
+            <span class="skill-level">Mastery</span>
+          </div>
+          <h3>Student Mentorship & Engagement</h3>
+          <p>Differentiating instruction for various age groups (K-12), coaching robotics competition teams, and evaluating learning gains.</p>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-label">
+              <span>Mentorship Impact</span>
+              <span>96%</span>
+            </div>
+            <div class="skill-progress-track">
+              <div class="skill-progress-fill" style="--percent: 96%;"></div>
+            </div>
+          </div>
+          <div class="skill-tags">
+            <span>Classroom Dynamics</span>
+            <span>Hackathons</span>
+            <span>Assessment</span>
+            <span>STEAM Events</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE & JOURNEY SECTION -->
+    <section class="section experience-section" id="experience">
+      <div class="section-heading">
+        <span class="eyebrow">04 / MY JOURNEY</span>
+        <h2>Experience & <span class="text-gradient">Milestones.</span></h2>
+        <p class="section-subtext">Click each milestone to expand interactive highlights and deliverables.</p>
+      </div>
+
+      <div class="timeline">
+        <!-- Milestone 1 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content glass-card" data-tilt>
+            <div class="card-spotlight"></div>
+            <div class="timeline-header">
+              <span class="timeline-label">PROFESSIONAL ROLE</span>
+              <span class="timeline-date">Current / Active</span>
+            </div>
+            <h3>STEM Trainer & Lead Educator</h3>
+            <p class="timeline-company">📍 STEM Education & Robotics Institute</p>
+            <p class="timeline-summary">
+              Conducting hands-on STEM curricula for K-12 students, training youth in robotics, sensor circuits, and coding fundamentals.
+            </p>
+
+            <button class="btn-expand-timeline" aria-expanded="false">
+              <span>View Key Deliverables & Modules</span>
+              <span class="expand-icon">▼</span>
+            </button>
+
+            <div class="timeline-details">
+              <ul class="deliverables-list">
+                <li>Designed and facilitated <strong>50+ interactive laboratory modules</strong> covering line-following robots, IoT sensors, and mechanical gearboxes.</li>
+                <li>Mentored over <strong>500+ students</strong> across diverse schools in robotics science fairs and innovation hackathons.</li>
+                <li>Created custom, low-cost DIY STEM kits that allow students to experiment with optics and electromagnetism at home.</li>
+                <li>Trained co-instructors on experiential teaching methodologies and child-safe laboratory practices.</li>
+              </ul>
+              <div class="deliverables-chips">
+                <span class="chip">Robotics Curriculum</span>
+                <span class="chip">Laboratory Management</span>
+                <span class="chip">Science Shows</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Milestone 2 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content glass-card" data-tilt>
+            <div class="card-spotlight"></div>
+            <div class="timeline-header">
+              <span class="timeline-label">ACADEMIC FOUNDATION</span>
+              <span class="timeline-date">Graduated</span>
+            </div>
+            <h3>Bachelor's Degree in Engineering / Science</h3>
+            <p class="timeline-company">🎓 University / Educational Institution</p>
+            <p class="timeline-summary">
+              Rigorous grounding in technical concepts, analytical problem solving, experimental design, and technical communication.
+            </p>
+
+            <button class="btn-expand-timeline" aria-expanded="false">
+              <span>View Academic Focus & Projects</span>
+              <span class="expand-icon">▼</span>
+            </button>
+
+            <div class="timeline-details">
+              <ul class="deliverables-list">
+                <li>Core studies in electronic circuits, microcontroller architecture, computer fundamentals, and applied mathematics.</li>
+                <li>Led student technical symposiums and science exhibition workshops for underprivileged schools.</li>
+                <li>Completed capstone projects involving automated sensor data acquisition and microcontroller programming.</li>
+              </ul>
+              <div class="deliverables-chips">
+                <span class="chip">Circuit Design</span>
+                <span class="chip">Embedded Logic</span>
+                <span class="chip">Technical Leadership</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section class="section projects-section" id="projects">
+      <div class="section-heading">
+        <span class="eyebrow">05 / CREATIVE WORK</span>
+        <h2>Projects & <span class="text-gradient">Innovations.</span></h2>
+        <p class="section-subtext">Selected interactive student activities, robotic prototypes, and hands-on maker builds.</p>
+      </div>
+
+      <!-- Project Category Filters -->
+      <div class="filter-tabs" role="tablist" aria-label="Project Category Filter">
+        <button class="filter-tab active" data-pfilter="all">All Projects (6)</button>
+        <button class="filter-tab" data-pfilter="robotics">Robotics</button>
+        <button class="filter-tab" data-pfilter="electronics">Electronics & IoT</button>
+        <button class="filter-tab" data-pfilter="science">Applied Science</button>
+        <button class="filter-tab" data-pfilter="coding">Coding & AI</button>
+      </div>
+
+      <div class="projects-grid" id="projectsGrid">
+        <!-- Project 1 -->
+        <article class="project-card glass-card" data-pcategory="robotics" data-tilt>
+          <div class="card-spotlight"></div>
+          <div class="project-art art-robot">
+            <span class="art-badge">Autonomous</span>
+            <div class="art-visual">🤖</div>
+          </div>
+          <div class="project-info">
+            <div class="project-meta">
+              <span class="project-category">ROBOTICS</span>
+              <span class="project-status">Featured Build</span>
+            </div>
+            <h3>Autonomous Line Follower & Obstacle Avoider</h3>
+            <p>
+              Dual-mode mobile robot built with Arduino Uno, IR sensors for high-contrast trajectory tracking, and an ultrasonic servo scanner for real-time obstacle evasion.
+            </p>
+            <div class="project-tags">
+              <span>Arduino Uno</span>
+              <span>L298N</span>
+              <span>HC-SR04</span>
+              <span>IR Sensor</span>
+            </div>
+            <button class="btn-inspect-project" data-project="line-follower">
+              <span>Inspect Project Details</span>
+              <span class="inspect-arrow">→</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="project-card glass-card" data-pcategory="electronics" data-tilt>
+          <div class="card-spotlight"></div>
+          <div class="project-art art-circuit">
+            <span class="art-badge">IoT & Smart Tech</span>
+            <div class="art-visual">🌱</div>
+          </div>
+          <div class="project-info">
+            <div class="project-meta">
+              <span class="project-category">ELECTRONICS</span>
+              <span class="project-status">Interactive Lab</span>
+            </div>
+            <h3>Smart IoT Plant Care & Weather Station</h3>
+            <p>
+              Automated greenhouse monitoring system utilizing ESP8266, capacitive soil moisture sensors, DHT11 temperature/humidity telemetry, and a mini servo drip pump.
+            </p>
+            <div class="project-tags">
+              <span>ESP8266</span>
+              <span>DHT11</span>
+              <span>Blynk IoT</span>
+              <span>Relay Module</span>
+            </div>
+            <button class="btn-inspect-project" data-project="iot-plant">
+              <span>Inspect Project Details</span>
+              <span class="inspect-arrow">→</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="project-card glass-card" data-pcategory="science" data-tilt>
+          <div class="card-spotlight"></div>
+          <div class="project-art art-science">
+            <span class="art-badge">Optics Lab</span>
+            <div class="art-visual">🌈</div>
+          </div>
+          <div class="project-info">
+            <div class="project-meta">
+              <span class="project-category">APPLIED SCIENCE</span>
+              <span class="project-status">DIY Experiment</span>
+            </div>
+            <h3>DIY Spectroscope & Light Wave Optics Kit</h3>
+            <p>
+              Hands-on optical spectrometer crafted from recycled CD diffraction gratings and precision slit tubes, enabling students to analyze emission spectrums of gas lights.
+            </p>
+            <div class="project-tags">
+              <span>Diffraction</span>
+              <span>Spectroscopy</span>
+              <span>Optics</span>
+              <span>DIY Maker</span>
+            </div>
+            <button class="btn-inspect-project" data-project="spectroscope">
+              <span>Inspect Project Details</span>
+              <span class="inspect-arrow">→</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- Project 4 -->
+        <article class="project-card glass-card" data-pcategory="science" data-tilt>
+          <div class="card-spotlight"></div>
+          <div class="project-art art-hydraulic">
+            <span class="art-badge">Fluid Mechanics</span>
+            <div class="art-visual">🏗️</div>
+          </div>
+          <div class="project-info">
+            <div class="project-meta">
+              <span class="project-category">APPLIED SCIENCE & ROBOTICS</span>
+              <span class="project-status">Physics Model</span>
+            </div>
+            <h3>Hydraulic 3-Axis Robotic Gripper Arm</h3>
+            <p>
+              A fluid-powered mechanical arm constructed with precision acrylic links, syringe actuators, and water pressure valves demonstrating Pascal's Principle and mechanical leverage.
+            </p>
+            <div class="project-tags">
+              <span>Pascal's Law</span>
+              <span>Fluid Mechanics</span>
+              <span>Kinematics</span>
+              <span>Laser Cut Wood</span>
+            </div>
+            <button class="btn-inspect-project" data-project="hydraulic-arm">
+              <span>Inspect Project Details</span>
+              <span class="inspect-arrow">→</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- Project 5 -->
+        <article class="project-card glass-card" data-pcategory="coding" data-tilt>
+          <div class="card-spotlight"></div>
+          <div class="project-art art-coding">
+            <span class="art-badge">Game Dev</span>
+            <div class="art-visual">🎮</div>
+          </div>
+          <div class="project-info">
+            <div class="project-meta">
+              <span class="project-category">CODING & AI</span>
+              <span class="project-status">Student Arcade</span>
+            </div>
+            <h3>Interactive Block-Coding Game Studio</h3>
+            <p>
+              A curriculum of 8 progressive game arcade modules designed in Scratch and MakeCode, introducing nested conditionals, coordinate physics, and variable score keeping.
+            </p>
+            <div class="project-tags">
+              <span>Scratch 3.0</span>
+              <span>Game Physics</span>
+              <span>Algorithms</span>
+              <span>MakeCode</span>
+            </div>
+            <button class="btn-inspect-project" data-project="coding-arcade">
+              <span>Inspect Project Details</span>
+              <span class="inspect-arrow">→</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- Project 6 -->
+        <article class="project-card glass-card" data-pcategory="electronics" data-tilt>
+          <div class="card-spotlight"></div>
+          <div class="project-art art-solar">
+            <span class="art-badge">Green Tech</span>
+            <div class="art-visual">☀️</div>
+          </div>
+          <div class="project-info">
+            <div class="project-meta">
+              <span class="project-category">ELECTRONICS</span>
+              <span class="project-status">Eco Innovation</span>
+            </div>
+            <h3>Solar-Powered Supercapacitor Rover</h3>
+            <p>
+              Miniature clean-energy buggy powered by a 5V photovoltaic solar panel feeding a supercapacitor bank, demonstrating green energy conversion and energy storage.
+            </p>
+            <div class="project-tags">
+              <span>Photovoltaic</span>
+              <span>Supercapacitors</span>
+              <span>DC Motors</span>
+              <span>Clean Tech</span>
+            </div>
+            <button class="btn-inspect-project" data-project="solar-rover">
+              <span>Inspect Project Details</span>
+              <span class="inspect-arrow">→</span>
+            </button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE CONTACT SECTION -->
+    <section class="section contact-section" id="contact">
+      <div class="section-heading">
+        <span class="eyebrow">06 / GET IN TOUCH</span>
+        <h2>Let's Inspire the <span class="text-gradient">Next Generation.</span></h2>
+        <p class="section-subtext">Have an inquiry regarding STEM workshops, school programs, curriculum design, or guest training? Reach out directly!</p>
+      </div>
+
+      <div class="contact-grid">
+        <!-- Direct Quick Connect Box -->
+        <div class="contact-info-card glass-card" data-tilt>
+          <div class="card-spotlight"></div>
+          <h3>Quick Connect</h3>
+          <p>I am always excited to discuss creative STEM learning ideas, school maker spaces, or youth robotics mentoring.</p>
+
+          <div class="contact-channels">
+            <div class="channel-item">
+              <span class="channel-icon">✉️</span>
+              <div class="channel-text">
+                <span class="channel-label">EMAIL ADDRESS</span>
+                <span class="channel-val" id="myEmailText">preethi.stem.trainer@example.com</span>
+              </div>
+              <button class="btn-copy-chip" id="copyEmailBtn" title="Copy Email to Clipboard">
+                <span>Copy 📋</span>
+              </button>
+            </div>
+
+            <div class="channel-item">
+              <span class="channel-icon">💼</span>
+              <div class="channel-text">
+                <span class="channel-label">LINKEDIN</span>
+                <span class="channel-val">linkedin.com/in/preethi-stem</span>
+              </div>
+              <a href="https://linkedin.com" target="_blank" rel="noopener" class="btn-copy-chip" title="Open LinkedIn">
+                <span>Visit ↗</span>
+              </a>
+            </div>
+
+            <div class="channel-item">
+              <span class="channel-icon">📍</span>
+              <div class="channel-text">
+                <span class="channel-label">LOCATION</span>
+                <span class="channel-val">Available for Onsite & Remote STEM Sessions</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="quick-badges">
+            <span class="qbadge">⚡ Rapid Response</span>
+            <span class="qbadge">🎒 K-12 Specialist</span>
+            <span class="qbadge">🛠️ Hands-On Guaranteed</span>
+          </div>
+        </div>
+
+        <!-- Interactive Message Form -->
+        <div class="contact-form-card glass-card" data-tilt>
+          <div class="card-spotlight"></div>
+          <h3>Send a Direct Message</h3>
+          <form class="contact-form" id="contactForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="senderName">Your Name</label>
+                <input type="text" id="senderName" name="name" required placeholder="e.g. Principal Sarah / Educator">
+              </div>
+              <div class="form-group">
+                <label for="senderEmail">Email Address</label>
+                <input type="email" id="senderEmail" name="email" required placeholder="name@school.org">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inquiryType">Interest / Program Type</label>
+              <select id="inquiryType" name="type">
+                <option value="school-workshop">School STEM Workshop / Science Camp</option>
+                <option value="robotics-training">Robotics & Coding Curriculum</option>
+                <option value="diy-maker-kits">Custom DIY Maker Kits & Labs</option>
+                <option value="general-consult">General Educational Collaboration</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <div class="label-with-count">
+                <label for="senderMessage">Message</label>
+                <span class="char-count" id="charCount">0 / 400</span>
+              </div>
+              <textarea id="senderMessage" name="message" rows="4" maxlength="400" required placeholder="Tell me about your students, workshop goals, or desired timeline..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-submit-message btn-magnetic" id="submitFormBtn">
+              <span>Send Message</span>
+              <span class="btn-send-icon">🚀</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Interactive Project Details Modal -->
+  <dialog id="projectModal" class="project-modal" aria-labelledby="modalTitle">
+    <div class="modal-content glass-card">
+      <div class="modal-header">
+        <div class="modal-category-badge" id="modalCategory">ROBOTICS</div>
+        <button class="modal-close" id="modalCloseBtn" aria-label="Close dialog">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-icon-badge" id="modalIcon">🤖</div>
+        <h2 id="modalTitle">Project Title</h2>
+        <p class="modal-lead" id="modalDescription">Detailed overview...</p>
+
+        <div class="modal-meta-grid">
+          <div class="meta-box">
+            <span class="meta-label">🎓 Pedagogical Goal</span>
+            <span class="meta-val" id="modalPedagogy">Understanding sensor feedback loops and closed-loop control.</span>
+          </div>
+          <div class="meta-box">
+            <span class="meta-label">⏱️ Build Duration</span>
+            <span class="meta-val" id="modalDuration">2–3 Laboratory Hours</span>
+          </div>
+          <div class="meta-box">
+            <span class="meta-label">👥 Target Student Age</span>
+            <span class="meta-val" id="modalAge">Grades 6–10 (Ages 11–16)</span>
+          </div>
+        </div>
+
+        <div class="modal-hardware-section">
+          <h4>Key Components & Tooling</h4>
+          <div class="modal-chips" id="modalComponents">
+            <!-- Populated via script -->
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-primary" id="modalActionBtn">Close Window</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Floating Back to Top Button with SVG Progress Ring -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to Top">
+    <svg class="progress-ring" width="50" height="50" viewBox="0 0 50 50">
+      <circle class="progress-ring-bg" cx="25" cy="25" r="21" stroke-width="3" fill="none" />
+      <circle class="progress-ring-fill" id="progressRingFill" cx="25" cy="25" r="21" stroke-width="3" fill="none" />
+    </svg>
+    <span class="back-to-top-arrow">↑</span>
+  </button>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-top">
+      <a href="#home" class="logo">
+        <span class="logo-mark">⚛</span> PREETHI<span class="logo-dot">.</span>
+      </a>
+      <p class="footer-tagline">
+        Empowering young inventors with experiential STEM learning, robotics, and creative confidence.
+      </p>
+      <div class="footer-socials">
+        <a href="#home" class="footer-social-link" title="Home">Home</a>
+        <a href="#about" class="footer-social-link" title="About">About</a>
+        <a href="#projects" class="footer-social-link" title="Projects">Projects</a>
+        <a href="#contact" class="footer-social-link" title="Contact">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> Preethi S. All rights reserved.</p>
+      <p class="footer-credit">Crafted with passion for interactive STEM education.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
