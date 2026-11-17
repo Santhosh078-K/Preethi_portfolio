@@ -1,6 +1,6 @@
 /**
  * PREETHI S | STEM TRAINER PORTFOLIO
- * Modern & Interactive JavaScript Engine (Optimized for GitHub Pages)
+ * Modern & Interactive JavaScript Engine (Optimized for All Form Factors & GitHub Pages)
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const toast = document.createElement("div");
         toast.className = "toast";
+        toast.setAttribute("role", "status");
         toast.innerHTML = `<span>${icon}</span> <span>${message}</span>`;
         toastContainer.appendChild(toast);
 
@@ -72,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Navbar shadow on scroll
         const navbar = document.getElementById("navbar");
         if (navbar) {
-            if (scrollTop > 50) {
+            if (scrollTop > 40) {
                 navbar.classList.add("scrolled");
             } else {
                 navbar.classList.remove("scrolled");
@@ -116,33 +117,54 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // =========================================================================
-    // 5. MOBILE NAVIGATION MENU
+    // 5. MOBILE & LAPTOP NAVIGATION MENU (FULL FORM FACTOR CONTROL)
     // =========================================================================
     const menuToggle = document.getElementById("menuToggle");
     const navLinks = document.getElementById("navLinks");
 
+    function setMobileMenuState(open) {
+        if (!menuToggle || !navLinks) return;
+        const isOpen = typeof open === "boolean" ? open : !navLinks.classList.contains("active");
+
+        navLinks.classList.toggle("active", isOpen);
+        menuToggle.classList.toggle("active", isOpen);
+        menuToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+
+        // Lock background scroll on mobile when menu is active
+        document.body.classList.toggle("nav-open", isOpen);
+    }
+
     if (menuToggle && navLinks) {
-        menuToggle.addEventListener("click", () => {
-            const isOpen = navLinks.classList.toggle("active");
-            menuToggle.classList.toggle("active", isOpen);
-            menuToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        menuToggle.addEventListener("click", (e) => {
+            e.stopPropagation();
+            setMobileMenuState();
         });
 
-        // Close on nav link click
+        // Close on nav link click with smooth scroll offset
         navLinks.querySelectorAll("a").forEach(link => {
             link.addEventListener("click", () => {
-                navLinks.classList.remove("active");
-                menuToggle.classList.remove("active");
-                menuToggle.setAttribute("aria-expanded", "false");
+                setMobileMenuState(false);
             });
         });
 
-        // Close when clicking outside
+        // Close when tapping outside the menu
         document.addEventListener("click", (e) => {
-            if (!navLinks.contains(e.target) && !menuToggle.contains(e.target) && navLinks.classList.contains("active")) {
-                navLinks.classList.remove("active");
-                menuToggle.classList.remove("active");
-                menuToggle.setAttribute("aria-expanded", "false");
+            if (navLinks.classList.contains("active") && !navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+                setMobileMenuState(false);
+            }
+        });
+
+        // Close on Escape key for keyboard accessibility
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && navLinks.classList.contains("active")) {
+                setMobileMenuState(false);
+            }
+        });
+
+        // Reset menu state on resize to tablet/desktop
+        window.addEventListener("resize", () => {
+            if (window.innerWidth > 768 && navLinks.classList.contains("active")) {
+                setMobileMenuState(false);
             }
         });
     }
@@ -154,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const navItems = document.querySelectorAll(".nav-link");
 
     function updateActiveNav() {
-        const scrollY = window.scrollY + 160;
+        const scrollY = window.scrollY + 140;
 
         sections.forEach(current => {
             const sectionHeight = current.offsetHeight;
@@ -175,7 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("scroll", updateActiveNav, { passive: true });
 
     // =========================================================================
-    // 7. ANIMATED NUMERICAL COUNTERS
+    // 7. ANIMATED NUMERICAL COUNTERS (VIEWPORT OBSERVER)
     // =========================================================================
     const counters = document.querySelectorAll(".counter");
     let countersAnimated = false;
@@ -219,7 +241,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     statsObserver.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.3 });
+        }, { threshold: 0.2 });
 
         statsObserver.observe(heroStatsEl);
     } else {
@@ -227,38 +249,41 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // =========================================================================
-    // 8. 3D CARD TILT & INTERACTIVE SPOTLIGHT EFFECT
+    // 8. 3D CARD TILT & SPOTLIGHT (DESKTOP / LAPTOP ONLY)
     // =========================================================================
-    const tiltCards = document.querySelectorAll("[data-tilt]");
+    // Only enable 3D tilt on devices with mouse/trackpad pointer to avoid mobile touch stickiness
+    const isFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-    tiltCards.forEach(card => {
-        card.addEventListener("mousemove", (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
+    if (isFinePointer) {
+        const tiltCards = document.querySelectorAll("[data-tilt]");
 
-            // Set spotlight CSS variables
-            card.style.setProperty("--mouse-x", `${x}px`);
-            card.style.setProperty("--mouse-y", `${y}px`);
+        tiltCards.forEach(card => {
+            card.addEventListener("mousemove", (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
 
-            // Compute 3D rotation angles
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = ((y - centerY) / centerY) * -5;
-            const rotateY = ((x - centerX) / centerX) * 5;
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
 
-            card.style.transform = `perspective(900px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px)`;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -5;
+                const rotateY = ((x - centerX) / centerX) * 5;
+
+                card.style.transform = `perspective(900px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px)`;
+            });
+
+            card.addEventListener("mouseleave", () => {
+                card.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0)";
+                card.style.setProperty("--mouse-x", "50%");
+                card.style.setProperty("--mouse-y", "50%");
+            });
         });
-
-        card.addEventListener("mouseleave", () => {
-            card.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0)";
-            card.style.setProperty("--mouse-x", "50%");
-            card.style.setProperty("--mouse-y", "50%");
-        });
-    });
+    }
 
     // =========================================================================
-    // 9. INTERACTIVE 3D THREE.JS STEM UNIVERSE
+    // 9. INTERACTIVE 3D THREE.JS STEM UNIVERSE (RESPONSIVE & TOUCH-AWARE)
     // =========================================================================
     const threeContainer = document.getElementById("three-container");
 
@@ -281,11 +306,9 @@ document.addEventListener("DOMContentLoaded", () => {
         renderer.setSize(threeContainer.clientWidth, threeContainer.clientHeight);
         threeContainer.appendChild(renderer.domElement);
 
-        // Core Objects Group
         const universeGroup = new THREE.Group();
         scene.add(universeGroup);
 
-        // Theme colors helper
         function getThemeColors() {
             const isLight = document.documentElement.getAttribute("data-theme") === "light";
             return {
@@ -321,7 +344,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const innerMesh = new THREE.Mesh(innerGeo, innerMat);
         universeGroup.add(innerMesh);
 
-        // 3. Orbital Rings (Gyroscopic)
+        // 3. Orbital Rings
         const ringMaterial1 = new THREE.MeshBasicMaterial({
             color: themeColors.primary,
             transparent: true,
@@ -356,7 +379,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ring3.rotation.z = Math.PI / 6;
         universeGroup.add(ring3);
 
-        // 4. Orbiting Electron Spheres on Rings
+        // 4. Orbiting Electron Spheres
         const electronGeo = new THREE.SphereGeometry(0.08, 16, 16);
         const electronMat = new THREE.MeshBasicMaterial({ color: themeColors.primary });
         const electron1 = new THREE.Mesh(electronGeo, electronMat);
@@ -393,7 +416,6 @@ document.addEventListener("DOMContentLoaded", () => {
         pointLight2.position.set(-4, -3, 4);
         scene.add(pointLight2);
 
-        // Sync colors on theme change
         window.addEventListener("themeChanged", () => {
             themeColors = getThemeColors();
             coreMat.color.setHex(themeColors.primary);
@@ -408,7 +430,7 @@ document.addEventListener("DOMContentLoaded", () => {
             pointLight2.color.setHex(themeColors.secondary);
         });
 
-        // Interactive Drag to Rotate & Inertia
+        // Mouse Drag to Rotate
         let isDragging = false;
         let previousMousePosition = { x: 0, y: 0 };
         let rotationVelocity = { x: 0, y: 0 };
@@ -436,7 +458,7 @@ document.addEventListener("DOMContentLoaded", () => {
             previousMousePosition = { x: e.clientX, y: e.clientY };
         });
 
-        // Touch support for drag
+        // Mobile Touch Support for 3D model
         threeContainer.addEventListener("touchstart", (e) => {
             if (e.touches.length === 1) {
                 isDragging = true;
@@ -465,7 +487,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         function triggerEnergyBurst() {
             burstActive = true;
-            burstScale = 1.5;
+            burstScale = 1.45;
             pointLight1.intensity = 7;
             pointLight2.intensity = 5;
 
@@ -486,7 +508,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // Mode Switching
+        // 3D Visualization Modes
         const modeButtons = document.querySelectorAll(".three-btn[data-mode]");
 
         function set3DMode(mode) {
@@ -583,18 +605,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
         animate();
 
-        // Resize Observer
+        // Responsive Resize Observer across screen sizes
         const resizeObserver = new ResizeObserver(() => {
             if (!threeContainer) return;
             const width = threeContainer.clientWidth;
             const height = threeContainer.clientHeight;
-            camera.aspect = width / height;
-            camera.updateProjectionMatrix();
-            renderer.setSize(width, height);
+            if (width > 0 && height > 0) {
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+                renderer.setSize(width, height);
+            }
         });
         resizeObserver.observe(threeContainer);
 
-        // Pause animation when tab is inactive
         document.addEventListener("visibilitychange", () => {
             if (document.hidden) {
                 cancelAnimationFrame(animationFrameId);
@@ -647,7 +670,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (copyEmailHeroBtn) copyEmailHeroBtn.addEventListener("click", () => copyToClipboard(emailToCopy, "Email address"));
     if (copyPhoneBtn) copyPhoneBtn.addEventListener("click", () => copyToClipboard(phoneToCopy, "Phone number"));
 
-    // Character Counter for Message Textarea
     const senderMessage = document.getElementById("senderMessage");
     const charCount = document.getElementById("charCount");
 
@@ -657,7 +679,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Contact Form Submission (Simulation)
     const contactForm = document.getElementById("contactForm");
     const submitFormBtn = document.getElementById("submitFormBtn");
 
@@ -690,12 +711,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // =========================================================================
-    // 11. MOUSE CURSOR FOLLOWER
+    // 11. MOUSE CURSOR FOLLOWER (DESKTOP ONLY)
     // =========================================================================
     const cursorGlow = document.getElementById("cursorGlow");
     const cursorDot = document.getElementById("cursorDot");
 
-    if (window.matchMedia("(pointer: fine)").matches) {
+    if (isFinePointer) {
         let mousePos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
         let glowPos = { x: mousePos.x, y: mousePos.y };
 
